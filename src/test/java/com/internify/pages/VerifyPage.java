@@ -10,7 +10,7 @@ public class VerifyPage extends BasePage {
     private final By verifyButton = By.tagName("button");
 
     private final By verifiedHeader =
-            By.xpath("//*[contains(text(),'VERIFIED CERTIFICATE')]");
+            By.tagName("h3");
 
     private final By displayedCertificateId =
             By.xpath("//*[contains(text(),'INF-2026-9LUGTK')]");
