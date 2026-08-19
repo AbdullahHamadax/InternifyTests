@@ -13,6 +13,7 @@ public class BaseTest {
     protected AboutPage aboutPage;
     protected VerifyPage verifyPage;
     protected LoginPage loginPage;
+    protected SignUpPage signUpPage;
     protected String url = "https://internify-one.vercel.app/";
 
 
@@ -27,6 +28,7 @@ public class BaseTest {
         aboutPage = new AboutPage();
         verifyPage = new VerifyPage();
         loginPage = new LoginPage();
+        signUpPage = new SignUpPage();
     }
 
 

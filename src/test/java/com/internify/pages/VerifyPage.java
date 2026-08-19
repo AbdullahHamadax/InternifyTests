@@ -1,23 +1,48 @@
 package com.internify.pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
+public class VerifyPage extends BasePage {
 
-public class VerifyPage extends BasePage{
     private final By mainHeader = By.tagName("h1");
+    private final By certificateID = By.id("certificateId");
+    private final By invalidCertificateError = By.tagName("h2");
+    private final By verifyButton = By.tagName("button");
+
+    private final By verifiedHeader =
+            By.xpath("//*[contains(text(),'VERIFIED CERTIFICATE')]");
+
+    private final By displayedCertificateId =
+            By.xpath("//*[contains(text(),'INF-2026-9LUGTK')]");
 
 
-    public WebElement getMainHeader(){
-        WebDriverWait wait =
-                new WebDriverWait(driver, Duration.ofSeconds(10));
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(mainHeader));
+    public String getMainHeaderText() {
+        return find(mainHeader).getText();
     }
 
-    public boolean isMainHeaderDisplayed(){
-        return getMainHeader().isDisplayed();
+    public boolean isVerifyPageLoaded() {
+        return urlContains("/verify");
+    }
+
+    public void clickVerifyButton(){
+        click(verifyButton);
+    }
+
+    public void enterCertificateId(String id){
+        set(certificateID, id);
+    }
+
+    public String getInvalidCertificateErrorText() {
+        return find(invalidCertificateError).getText();
+    }
+
+    public String getVerifiedHeaderText() {
+        return find(verifiedHeader).getText();
+    }
+
+    public String getDisplayedCertificateId() {
+        return find(displayedCertificateId).getText();
     }
 }
+
+

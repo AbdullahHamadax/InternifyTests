@@ -2,10 +2,6 @@ package com.internify.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 
 public class HomePage extends BasePage {
     private final By mainHeader =  By.tagName("h1");
@@ -13,6 +9,7 @@ public class HomePage extends BasePage {
     private final By howItWorksSection = By.id("how-it-works");
 
     private final By loginButton = By.cssSelector("a[href='/login']");
+    private final By signUpButton = By.cssSelector("nav a[href='/signup']");
 
 
     private final By verifyButton = By.cssSelector("main a[href='/verify']");
@@ -20,10 +17,8 @@ public class HomePage extends BasePage {
     private final By themeButton = By.cssSelector("button[aria-label='Toggle theme']");
 
 
-    public WebElement getMainHeader(){
-        WebDriverWait wait =
-                new WebDriverWait(driver, Duration.ofSeconds(10));
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(mainHeader));
+    public WebElement getMainHeader() {
+        return find(mainHeader);
     }
 
 
@@ -54,6 +49,10 @@ public class HomePage extends BasePage {
 
     public void clickLogin(){
         click(loginButton);
+    }
+
+    public void clickSignUp(){
+        click(signUpButton);
     }
 
     public void scrollToVerify(){
