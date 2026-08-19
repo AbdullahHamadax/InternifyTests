@@ -1,9 +1,9 @@
 package com.internify.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -31,11 +31,26 @@ public class BasePage {
     }
 
     protected void scrollTo(By locator) {
-        WebElement element = find(locator);
+        WebElement element = wait.until(
+                ExpectedConditions.presenceOfElementLocated(locator)
+        );
+        JavascriptExecutor javascript = (JavascriptExecutor) driver;
 
-        new Actions(driver)
-                .scrollToElement(element)
-                .perform();
+        javascript.executeScript(
+                "arguments[0].scrollIntoView({block: 'center', inline: 'nearest', behavior: 'auto'});",
+                element
+        );
+
+        wait.until(currentDriver -> {
+            WebElement target = currentDriver.findElement(locator);
+            return (Boolean) ((JavascriptExecutor) currentDriver).executeScript(
+                    "const rect = arguments[0].getBoundingClientRect();" +
+                            "const viewportHeight = window.innerHeight || document.documentElement.clientHeight;" +
+                            "const center = rect.top + rect.height / 2;" +
+                            "return center >= 0 && center <= viewportHeight;",
+                    target
+            );
+        });
     }
 
     protected void click(By locator) {
